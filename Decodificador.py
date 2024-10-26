@@ -25,6 +25,11 @@ def generar_instruccion():
     instruccion = f"{operando1_bin}_{operando2_bin}_{habilitar_br}_{operacion_bin}_{direccion_ram_bin}_{habilitar_ram}"
     salida_instruccion.config(text=f"Instrucción: {instruccion}")
 
+def copiar_al_portapapeles():
+    # Copia la instrucción al portapapeles
+    ventana.clipboard_clear()  # Limpiar el portapapeles
+    ventana.clipboard_append(salida_instruccion.cget("text").replace("Instrucción: ", ""))  # Copiar la instrucción
+
 # Crear la ventana principal
 ventana = tk.Tk()
 ventana.title("Decodificador de Instrucciones (20 bits)")
@@ -66,7 +71,11 @@ boton_generar.grid(row=6, column=0, columnspan=2, padx=10, pady=20)
 
 # Etiqueta para mostrar la instrucción generada
 salida_instruccion = tk.Label(ventana, text="Instrucción: ")
-salida_instruccion.grid(row=7, column=0, columnspan=2, padx=10, pady=5)
+salida_instruccion.grid(row=7, column=0, padx=10, pady=5, sticky="w")
+
+# Botón para copiar la instrucción al portapapeles
+boton_copiar = tk.Button(ventana, text="Copiar al portapapeles", command=copiar_al_portapapeles)
+boton_copiar.grid(row=7, column=1, padx=10, pady=5, sticky="e")
 
 # Ejecutar la ventana principal
 ventana.mainloop()
